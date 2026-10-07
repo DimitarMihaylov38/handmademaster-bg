@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
-
+import AuthGuard from './guards/AuthGuard'
+import GuestGuard from './guards/GuestGuard'
 import Home from './pages/Home'
 import Products from './pages/Products'
 import ProductDetails from './pages/ProductDetails'
@@ -19,25 +20,29 @@ function App() {
     <>
       <Header />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
+     <Routes>
+  <Route path="/" element={<Home />} />
 
-        <Route path="/products" element={<Products />} />
-        <Route path="/products/:productId" element={<ProductDetails />} />
-        <Route path="/products/create" element={<CreateProduct />} />
-        <Route path="/products/:productId/edit" element={<EditProduct />} />
+  <Route path="/products" element={<Products />} />
+  <Route path="/products/:productId" element={<ProductDetails />} />
 
-        <Route path="/masters" element={<Masters />} />
-        <Route path="/masters/:masterId" element={<MasterDetails />} />
+  <Route path="/masters" element={<Masters />} />
+  <Route path="/masters/:masterId" element={<MasterDetails />} />
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+  <Route element={<GuestGuard />}>
+    <Route path="/login" element={<Login />} />
+    <Route path="/register" element={<Register />} />
+  </Route>
 
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/favorites" element={<Favorites />} />
+  <Route element={<AuthGuard />}>
+    <Route path="/profile" element={<Profile />} />
+    <Route path="/favorites" element={<Favorites />} />
+    <Route path="/products/create" element={<CreateProduct />} />
+    <Route path="/products/:productId/edit" element={<EditProduct />} />
+  </Route>
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+  <Route path="*" element={<NotFound />} />
+</Routes>
     </>
   )
 }
