@@ -14,6 +14,7 @@ import EditProduct from './pages/EditProduct'
 import Favorites from './pages/Favorites'
 import NotFound from './pages/NotFound'
 import Header from './components/Header'
+import EditProfile from './pages/EditProfile'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
 
   <Route path="/products" element={<Products />} />
   <Route path="/products/:productId" element={<ProductDetails />} />
+  <Route path="/profile/edit" element={<EditProfile />} />
 
   <Route path="/masters" element={<Masters />} />
   <Route path="/masters/:masterId" element={<MasterDetails />} />
