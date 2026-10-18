@@ -1,7 +1,7 @@
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
-export default function GuestGuard() {
+export default function GuestGuard({ children }) {
   const { isAuthenticated, loading } = useAuth()
 
   if (loading) {
@@ -12,5 +12,5 @@ export default function GuestGuard() {
     return <Navigate to="/" replace />
   }
 
-  return <Outlet />
+  return children
 }

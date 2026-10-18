@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
-import AuthGuard from './guards/AuthGuard'
-import GuestGuard from './guards/GuestGuard'
+
+import Header from './components/Header'
+
 import Home from './pages/Home'
 import Products from './pages/Products'
 import ProductDetails from './pages/ProductDetails'
@@ -9,44 +10,104 @@ import MasterDetails from './pages/MasterDetails'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Profile from './pages/Profile'
+import EditProfile from './pages/EditProfile'
 import CreateProduct from './pages/CreateProduct'
 import EditProduct from './pages/EditProduct'
 import Favorites from './pages/Favorites'
 import NotFound from './pages/NotFound'
-import Header from './components/Header'
-import EditProfile from './pages/EditProfile'
 
-function App() {
+import AuthGuard from './guards/AuthGuard'
+import GuestGuard from './guards/GuestGuard'
+
+export default function App() {
   return (
-    <>
+    <div className="min-h-screen bg-slate-100 text-slate-900">
       <Header />
 
-     <Routes>
-  <Route path="/" element={<Home />} />
+      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-  <Route path="/products" element={<Products />} />
-  <Route path="/products/:productId" element={<ProductDetails />} />
-  <Route path="/profile/edit" element={<EditProfile />} />
+          <Route path="/products" element={<Products />} />
 
-  <Route path="/masters" element={<Masters />} />
-  <Route path="/masters/:masterId" element={<MasterDetails />} />
+          <Route
+            path="/products/:productId"
+            element={<ProductDetails />}
+          />
 
-  <Route element={<GuestGuard />}>
-    <Route path="/login" element={<Login />} />
-    <Route path="/register" element={<Register />} />
-  </Route>
+          <Route
+            path="/products/create"
+            element={
+              <AuthGuard>
+                <CreateProduct />
+              </AuthGuard>
+            }
+          />
 
-  <Route element={<AuthGuard />}>
-    <Route path="/profile" element={<Profile />} />
-    <Route path="/favorites" element={<Favorites />} />
-    <Route path="/products/create" element={<CreateProduct />} />
-    <Route path="/products/:productId/edit" element={<EditProduct />} />
-  </Route>
+          <Route
+            path="/products/:productId/edit"
+            element={
+              <AuthGuard>
+                <EditProduct />
+              </AuthGuard>
+            }
+          />
 
-  <Route path="*" element={<NotFound />} />
-</Routes>
-    </>
+          <Route path="/masters" element={<Masters />} />
+
+          <Route
+            path="/masters/:masterId"
+            element={<MasterDetails />}
+          />
+
+          <Route
+            path="/login"
+            element={
+              <GuestGuard>
+                <Login />
+              </GuestGuard>
+            }
+          />
+
+          <Route
+            path="/register"
+            element={
+              <GuestGuard>
+                <Register />
+              </GuestGuard>
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <AuthGuard>
+                <Profile />
+              </AuthGuard>
+            }
+          />
+
+          <Route
+            path="/profile/edit"
+            element={
+              <AuthGuard>
+                <EditProfile />
+              </AuthGuard>
+            }
+          />
+
+          <Route
+            path="/favorites"
+            element={
+              <AuthGuard>
+                <Favorites />
+              </AuthGuard>
+            }
+          />
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+    </div>
   )
 }
-
-export default App
