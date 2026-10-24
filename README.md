@@ -6,6 +6,14 @@ HandmadeMaster BG е React SPA приложение за представяне 
 
 ---
 
+## Live Demo
+
+Приложението е достъпно на:
+
+https://handmademasterbg.netlify.app/
+
+---
+
 ## Основни технологии
 
 - React
