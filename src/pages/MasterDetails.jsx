@@ -238,7 +238,7 @@ export default function MasterDetails() {
                     </span>
 
                     <span className="text-lg font-bold text-slate-900">
-                      {product.price} лв.
+                      {product.price} €.
                     </span>
                   </div>
 

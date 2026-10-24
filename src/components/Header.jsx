@@ -1,190 +1,173 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
 export default function Header() {
   const { isAuthenticated, logout } = useAuth()
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
-  const closeMenu = () => {
-    setIsMenuOpen(false)
-  }
+  const linkClass = ({ isActive }) =>
+    `transition ${
+      isActive
+        ? 'text-white font-semibold'
+        : 'text-neutral-300 hover:text-white'
+    }`
 
   const handleLogout = async () => {
     await logout()
-    setIsMenuOpen(false)
+    setMenuOpen(false)
+  }
+
+  const closeMenu = () => {
+    setMenuOpen(false)
   }
 
   return (
-    <header className="bg-slate-900 text-white shadow-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+    <header className="w-full bg-neutral-900 text-white">
+      <div className="flex w-full items-center justify-between px-6 py-4 lg:px-10">
         <Link
           to="/"
           onClick={closeMenu}
-          className="text-xl font-bold tracking-wide"
+          className="text-xl font-bold tracking-tight"
         >
           HandmadeMaster BG
         </Link>
 
         <button
           type="button"
-          onClick={() => setIsMenuOpen((current) => !current)}
-          className="rounded-md border border-slate-600 px-3 py-2 text-sm md:hidden"
+          onClick={() => setMenuOpen((prev) => !prev)}
+          className="rounded-md border border-neutral-700 px-4 py-2 text-sm font-medium md:hidden"
         >
           Меню
         </button>
 
-        <nav className="hidden items-center gap-5 md:flex">
-          <Link
-            to="/"
-            className="transition hover:text-amber-400"
-          >
+        <nav className="hidden items-center gap-8 md:flex">
+          <NavLink to="/" className={linkClass}>
             Начало
-          </Link>
+          </NavLink>
 
-          <Link
-            to="/products"
-            className="transition hover:text-amber-400"
-          >
+          <NavLink to="/products" className={linkClass}>
             Продукти
-          </Link>
+          </NavLink>
 
-          <Link
-            to="/masters"
-            className="transition hover:text-amber-400"
-          >
+          <NavLink to="/masters" className={linkClass}>
             Майстори
-          </Link>
+          </NavLink>
 
           {isAuthenticated ? (
             <>
-              <Link
-                to="/favorites"
-                className="transition hover:text-amber-400"
-              >
+              <NavLink to="/favorites" className={linkClass}>
                 Любими
-              </Link>
+              </NavLink>
 
-              <Link
-                to="/products/create"
-                className="transition hover:text-amber-400"
-              >
+              <NavLink to="/products/create" className={linkClass}>
                 Добави продукт
-              </Link>
+              </NavLink>
 
-              <Link
-                to="/profile"
-                className="transition hover:text-amber-400"
-              >
+              <NavLink to="/profile" className={linkClass}>
                 Моят профил
-              </Link>
+              </NavLink>
 
               <button
                 type="button"
                 onClick={handleLogout}
-                className="rounded-md bg-amber-500 px-4 py-2 font-medium text-slate-900 transition hover:bg-amber-400"
+                className="text-neutral-300 transition hover:text-white"
               >
                 Изход
               </button>
             </>
           ) : (
             <>
-              <Link
-                to="/login"
-                className="transition hover:text-amber-400"
-              >
+              <NavLink to="/login" className={linkClass}>
                 Вход
-              </Link>
+              </NavLink>
 
-              <Link
-                to="/register"
-                className="rounded-md bg-amber-500 px-4 py-2 font-medium text-slate-900 transition hover:bg-amber-400"
-              >
+              <NavLink to="/register" className={linkClass}>
                 Регистрация
-              </Link>
+              </NavLink>
             </>
           )}
         </nav>
       </div>
 
-      {isMenuOpen && (
-        <nav className="border-t border-slate-700 px-4 py-4 md:hidden">
-          <div className="flex flex-col gap-3">
-            <Link
+      {menuOpen && (
+        <nav className="border-t border-neutral-800 px-6 py-4 md:hidden">
+          <div className="flex flex-col gap-4">
+            <NavLink
               to="/"
               onClick={closeMenu}
-              className="hover:text-amber-400"
+              className={linkClass}
             >
               Начало
-            </Link>
+            </NavLink>
 
-            <Link
+            <NavLink
               to="/products"
               onClick={closeMenu}
-              className="hover:text-amber-400"
+              className={linkClass}
             >
               Продукти
-            </Link>
+            </NavLink>
 
-            <Link
+            <NavLink
               to="/masters"
               onClick={closeMenu}
-              className="hover:text-amber-400"
+              className={linkClass}
             >
               Майстори
-            </Link>
+            </NavLink>
 
             {isAuthenticated ? (
               <>
-                <Link
+                <NavLink
                   to="/favorites"
                   onClick={closeMenu}
-                  className="hover:text-amber-400"
+                  className={linkClass}
                 >
                   Любими
-                </Link>
+                </NavLink>
 
-                <Link
+                <NavLink
                   to="/products/create"
                   onClick={closeMenu}
-                  className="hover:text-amber-400"
+                  className={linkClass}
                 >
                   Добави продукт
-                </Link>
+                </NavLink>
 
-                <Link
+                <NavLink
                   to="/profile"
                   onClick={closeMenu}
-                  className="hover:text-amber-400"
+                  className={linkClass}
                 >
                   Моят профил
-                </Link>
+                </NavLink>
 
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="w-fit rounded-md bg-amber-500 px-4 py-2 font-medium text-slate-900"
+                  className="text-left text-neutral-300 transition hover:text-white"
                 >
                   Изход
                 </button>
               </>
             ) : (
               <>
-                <Link
+                <NavLink
                   to="/login"
                   onClick={closeMenu}
-                  className="hover:text-amber-400"
+                  className={linkClass}
                 >
                   Вход
-                </Link>
+                </NavLink>
 
-                <Link
+                <NavLink
                   to="/register"
                   onClick={closeMenu}
-                  className="w-fit rounded-md bg-amber-500 px-4 py-2 font-medium text-slate-900"
+                  className={linkClass}
                 >
                   Регистрация
-                </Link>
+                </NavLink>
               </>
             )}
           </div>

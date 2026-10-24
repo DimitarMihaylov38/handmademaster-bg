@@ -24,7 +24,7 @@ export default function App() {
     <div className="min-h-screen bg-slate-100 text-slate-900">
       <Header />
 
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <main className="w-full">
         <Routes>
           <Route path="/" element={<Home />} />
 

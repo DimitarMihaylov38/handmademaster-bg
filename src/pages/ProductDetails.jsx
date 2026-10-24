@@ -212,7 +212,7 @@ export default function ProductDetails() {
             </h1>
 
             <p className="mt-5 text-3xl font-bold text-amber-600">
-              {product.price} лв.
+              {product.price} €.
             </p>
 
             <div className="mt-6">
