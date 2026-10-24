@@ -7,9 +7,9 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const linkClass = ({ isActive }) =>
-    `transition ${
+    `rounded-md px-2 py-2 transition ${
       isActive
-        ? 'text-white font-semibold'
+        ? 'font-semibold text-white'
         : 'text-neutral-300 hover:text-white'
     }`
 
@@ -24,11 +24,17 @@ export default function Header() {
 
   return (
     <header className="w-full bg-neutral-900 text-white">
-      <div className="flex w-full items-center justify-between px-6 py-4 lg:px-10">
+      <div
+        className="flex w-full items-center justify-between py-4"
+        style={{
+          paddingLeft: '32px',
+          paddingRight: '32px',
+        }}
+      >
         <Link
           to="/"
           onClick={closeMenu}
-          className="text-xl font-bold tracking-tight"
+          className="shrink-0 text-xl font-bold tracking-tight"
         >
           HandmadeMaster BG
         </Link>
@@ -41,7 +47,10 @@ export default function Header() {
           Меню
         </button>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav
+          className="hidden items-center md:flex"
+          style={{ gap: '28px' }}
+        >
           <NavLink to="/" className={linkClass}>
             Начало
           </NavLink>
@@ -71,7 +80,7 @@ export default function Header() {
               <button
                 type="button"
                 onClick={handleLogout}
-                className="text-neutral-300 transition hover:text-white"
+                className="px-2 py-2 text-neutral-300 transition hover:text-white"
               >
                 Изход
               </button>
@@ -91,13 +100,15 @@ export default function Header() {
       </div>
 
       {menuOpen && (
-        <nav className="border-t border-neutral-800 px-6 py-4 md:hidden">
-          <div className="flex flex-col gap-4">
-            <NavLink
-              to="/"
-              onClick={closeMenu}
-              className={linkClass}
-            >
+        <nav
+          className="border-t border-neutral-800 py-4 md:hidden"
+          style={{
+            paddingLeft: '32px',
+            paddingRight: '32px',
+          }}
+        >
+          <div className="flex flex-col gap-3">
+            <NavLink to="/" onClick={closeMenu} className={linkClass}>
               Начало
             </NavLink>
 
@@ -146,7 +157,7 @@ export default function Header() {
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="text-left text-neutral-300 transition hover:text-white"
+                  className="px-2 py-2 text-left text-neutral-300 transition hover:text-white"
                 >
                   Изход
                 </button>

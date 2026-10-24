@@ -1,3 +1,4 @@
+import Footer from './components/Footer'
 import { Routes, Route } from 'react-router-dom'
 
 import Header from './components/Header'
@@ -21,10 +22,10 @@ import GuestGuard from './guards/GuestGuard'
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-900">
+    <div className="flex min-h-screen flex-col bg-slate-200 text-slate-900">
       <Header />
 
-      <main className="w-full">
+      <main className="w-full flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
 
@@ -108,6 +109,7 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
+      <Footer />
     </div>
   )
 }
